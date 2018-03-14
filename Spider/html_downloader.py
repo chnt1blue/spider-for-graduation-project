@@ -1,8 +1,9 @@
 from http import cookiejar
 from urllib import request, error
 from urllib.parse import urlparse
-
-
+'''
+http下载器
+'''
 class HtmlDownLoader(object):
     def download(self, url, retry_count=3, headers=None, proxy=None, data=None):
         if url is None:
@@ -17,8 +18,9 @@ class HtmlDownLoader(object):
                 opener.add_handler(request.ProxyHandler(proxies))
             content = opener.open(req).read()
         except error.URLError as e:
-            print('HtmlDownLoader download error:', e.reason)
-            content = None
+            #print('HtmlDownLoader download error:', e.reason)
+            content = open('w_http.txt').read()
+            #return None
             if retry_count > 0:
                 if hasattr(e, 'code') and 500 <= e.code < 600:
                     #说明是 HTTPError 错误且 HTTP CODE 为 5XX 范围说明是服务器错误，可以尝试再次下载
